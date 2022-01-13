@@ -3,7 +3,7 @@ const express = require("express");
 const router = require("./src/routes");
 const cors = require("cors");
 const { Server } = require("socket.io");
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 const app = express();
 
