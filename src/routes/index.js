@@ -93,4 +93,8 @@ router.patch("/cancel-transaction/:id", tokenAuth, addStock, cancelTransaction);
 // ====================================================================> shipping
 router.post("/shipping", tokenAuth, uploadFile("image"), addShipping);
 
+router.get("/", (req, res) => {
+  res.send("Waysbean");
+});
+
 module.exports = router;
