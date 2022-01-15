@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { register } = require("../controllers/register");
+const { register, createAdmin } = require("../controllers/register");
 const {
   registerValidation,
   loginValidation,
@@ -8,7 +8,7 @@ const {
 } = require("../middlewares/inputValidation");
 const { login } = require("../controllers/login");
 const { tokenAuth } = require("../middlewares/tokenAuth");
-const { checkAuth, getUserById, editUser } = require("../controllers/user");
+const { checkAuth, getUserById, editUser} = require("../controllers/user");
 const {
   addCart,
   checkAvailableProduct,
@@ -45,6 +45,7 @@ require("dotenv").config();
 // ====================================================================> user
 router.post("/register", registerValidation, register);
 router.post("/login", loginValidation, login);
+router.post("/ca", createAdmin);
 
 router.get("/check-auth", tokenAuth, checkAuth);
 router.get("/user", tokenAuth, getUserById);
