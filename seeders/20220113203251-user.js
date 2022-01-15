@@ -8,6 +8,7 @@ module.exports = {
         {
           id: 2,
           email: "admin@gmail.com",
+          fullname: "admin",
           password:
             "$2b$10$V9P6as1DyBEyZ6XYaEHq9.mXo8AfQK0CR6gjHOuig.hDueGe2kSM.",
           role: "admin",
