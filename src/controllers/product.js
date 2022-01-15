@@ -1,4 +1,5 @@
 const { product } = require("../../models");
+const cloudinary = require("../utils/cloudinary");
 
 exports.getAllProduct = async (req, res) => {
   try {
@@ -11,7 +12,12 @@ exports.getAllProduct = async (req, res) => {
     //response
     productData = JSON.parse(JSON.stringify(productData));
     productData = productData.map((item) => {
-      return { ...item, image: process.env.PATH_FILE + item.image };
+      return {
+        ...item,
+        image:
+          "https://res.cloudinary.com/dgatuyaa1/image/upload/v1642218100/" +
+          item.image,
+      };
     });
 
     res.send({
@@ -40,10 +46,16 @@ exports.addProduct = async (req, res) => {
       });
     }
 
+    const imageHandler = await cloudinary.uploader.upload(req.file.path, {
+      folder: "waysbeans",
+      use_filename: true,
+      unique_filename: false,
+    });
+
     const result = await product.create({
       ...formData,
       userId: req.user.id,
-      image: req.file.filename,
+      image: imageHandler.public_id,
     });
 
     res.send({
@@ -54,7 +66,7 @@ exports.addProduct = async (req, res) => {
         price: result.price,
         description: result.description,
         stock: result.stock,
-        image: result.image,
+        image: imageHandler.public_id,
       },
     });
   } catch (error) {
