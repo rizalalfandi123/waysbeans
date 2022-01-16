@@ -194,7 +194,13 @@ exports.editProduct = async (req, res) => {
     const formData = req.body;
 
     if (req.file) {
-      formData.image = req.file.filename;
+      const imageHandler = await cloudinary.uploader.upload(req.file.path, {
+        folder: "waysbeans",
+        use_filename: true,
+        unique_filename: false,
+      });
+
+      formData.image = imageHandler.public_id;
     }
 
     const response = await product.update(
