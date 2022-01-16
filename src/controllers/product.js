@@ -90,7 +90,7 @@ exports.getDetailProduct = async (req, res) => {
       },
     });
 
-    productData.image = process.env.PATH_FILE + productData.image;
+    productData.image = "https://res.cloudinary.com/dgatuyaa1/image/upload/v1642218100/" + productData.image;
 
     //response
     res.send({
