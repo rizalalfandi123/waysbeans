@@ -118,15 +118,20 @@ exports.getTransactionById = async (req, res) => {
       where: {
         id: transactionId,
       },
-      include: {
-        model: order,
-        as: "orders",
-        attributes: ["qty"],
-        include: {
-          association: "product",
-          attributes: ["image", "name", "price"],
+      include: [
+        {
+          model: order,
+          as: "orders",
+          attributes: ["qty"],
+          include: {
+            association: "product",
+            attributes: ["image", "name", "price"],
+          },
         },
-      },
+        {
+          association: "shipping",
+        },
+      ],
     });
 
     res.send({
