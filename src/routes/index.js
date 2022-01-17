@@ -37,6 +37,7 @@ const {
   getTransactions,
   editTransactionStatus,
   getTransactionById,
+  getUserTransactionsByStatus,
   cancelTransaction,
 } = require("../controllers/transaction");
 
@@ -84,6 +85,7 @@ router.patch("/decrement-cart/:id", decrementCart);
 router.get("/my-transactions", tokenAuth, getUserTransactions);
 router.get("/transactions", tokenAuth, getTransactions);
 router.get("/transaction/:id", tokenAuth, getTransactionById);
+router.get("/transactions/:status", tokenAuth, getUserTransactionsByStatus);
 
 router.post("/transaction", tokenAuth, reduceStock, addTransaction);
 

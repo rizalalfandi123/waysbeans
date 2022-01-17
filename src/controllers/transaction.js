@@ -198,3 +198,28 @@ exports.cancelTransaction = async (req, res) => {
     });
   }
 };
+
+exports.getUserTransactionsByStatus = async (req, res) => {
+  try {
+    const id = req.user.id;
+    let getStatus = req.params.status;
+
+    let status = getStatus.replace(/-/gi, " ");
+
+    const result = await transaction.findAll({
+      where: { status, buyerId: id },
+    });
+
+    res.send({
+      status: "success",
+      message: "success get transactions",
+      transactions: result,
+    });
+  } catch (error) {
+    console.log(error);
+    res.send({
+      status: "failed",
+      message: "Failed get transactions",
+    });
+  }
+};
